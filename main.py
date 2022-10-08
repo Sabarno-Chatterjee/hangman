@@ -55,3 +55,7 @@ while not end_of_game:
     print(hangman_art.stages[lives])
 
 
+
+#I need to add section wise hints.
+
+
