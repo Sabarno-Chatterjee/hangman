@@ -1,61 +1,56 @@
+#Let's build hangman
 import random
-import hangman_art
-import hangman_words
-import os
+import words
+import art
 
 
-chosen_word = random.choice(hangman_words.word_list)
-word_length = len(chosen_word)
+pick = random.choice(words.word_list)
 
-end_of_game = False
+#Test code:
+print(pick)
+print(art.logo)
+#Variables:
+not_win = True
+display = []
 lives = 6
 
-print(hangman_art.logo)
-#Testing code
-#print(f'Pssst, the solution is {chosen_word}.')
+for i in range(0, len(pick)):
+  display.append("_")
+print(display)
 
-display = []
+while not_win:
+  player_guess = input("\nPlease guess a letter.\n\n").lower()
 
-for _ in range(word_length):
-    display += "_"
-while not end_of_game:
+  count = 0
+  for letter in pick:
+    count += 1
+    if player_guess == letter:
+      if player_guess in display:
+        print("\n\nYou already guess that.")
+      else:
+        display[count-1] = letter
+    
+    
+    
+  print(f"\n{display}\n") 
 
-    guess = input("Guess a letter: ").lower()
-    if guess in display:
-        print("You've already guessed this letter.")
-
-    #Check guessed letter
-    for position in range(word_length):
-        letter = chosen_word[position]
-        #print(f"Current position: {position}\n Current letter: {letter}\n Guessed letter: {guess}")
-        if letter == guess:
-            display[position] = letter
-
-    #Check if user is wrong.
-    if guess not in chosen_word:
-
-        print(
-            f"The letter you chose {guess}, is not in the word, you lose a life."
-        )
-        lives -= 1
-        if lives == 0:
-            end_of_game = True
-            print("You lose.")
-            print(f"The word was {chosen_word}")
-
-    #Join all the elements in the list and turn it into a String.
-    print(f"{' '.join(display)}")
-
-    #Check if user has got all letters.
-    if "_" not in display:
-        end_of_game = True
-        print("You win.")
-
-
-    print(hangman_art.stages[lives])
-
-
-
-#I need to add section wise hints.
+  if "_" not in display:
+        not_win = False
+        print("You won!")
+  if player_guess not in pick:
+      print("You are wrong\n") 
+      lives -= 1
+      #print(art.stages[lives])
+      if lives == 0:
+        print("\n You lost! \n\n")
+        not_win = False
+      else: 
+        print(f"You lost a life. Lives left: {lives}")
+  
+  
+  
+      
+# Need sort out words with double letters.
+# I need to add section wise hints.
 
 
