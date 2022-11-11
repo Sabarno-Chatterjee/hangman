@@ -1071,7 +1071,7 @@ zodiac
 zombie
 '''
 
-#word_list.extend(data.split())
+word_list.extend(data.split())
 
 
 
